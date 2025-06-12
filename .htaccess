@@ -1,0 +1,15 @@
+# Impedir que se pueda ver el listado de contenidos de un directorio
+
+Options All -Indexes
+
+# Url Amigables
+
+RewriteEngine On
+
+RewriteRule ^([-a-zA-Z0-9ñÑ_/]+)$ index.php?ruta=$1
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
