@@ -101,6 +101,7 @@
 	<meta name="twitter:site" content="@tu-usuario">
 
 
+
 	<!--=====================================
 	PLUGINS DE CSS
 	======================================-->
@@ -147,6 +148,7 @@
 	PLUGINS DE JAVASCRIPT
 	======================================-->
 
+
 	<script src="<?php echo $url; ?>vistas/js/plugins/jquery.min.js"></script>
 
 	<script src="<?php echo $url; ?>vistas/js/plugins/bootstrap.min.js"></script>
@@ -163,8 +165,8 @@
 
 	<script src="<?php echo $url; ?>vistas/js/plugins/dscountdown.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script> -->
 
 	<script src="<?php echo $url; ?>vistas/js/plugins/knob.jquery.js"></script>
 
@@ -257,7 +259,7 @@ if(isset($_GET["ruta"])){
 	LISTA BLANCA DE URL'S AMIGABLES
 	=============================================*/
 
-	if($ruta != null || $rutas[0] == "articulos-gratis" || $rutas[0] == "lo-mas-vendido" || $rutas[0] == "lo-mas-visto"){
+	if($ruta != null || $rutas[0] == "nuevos-ingresos" || $rutas[0] == "articulos-gratis" || $rutas[0] == "lo-mas-vendido" || $rutas[0] == "lo-mas-visto"){
 
 		include "modulos/productos.php";
 

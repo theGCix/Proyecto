@@ -13,7 +13,7 @@ foreach ($ventas as $key => $value) {
 	/*=============================================
   	PORCENTAJES MÉTODOS DE PAGO PAYPAL
   	=============================================*/
-  	if($value["metodo"] == "paypal"){
+  	if($value["metodo"] == "pago"){
 
   		 $totalPaypal += $value["pago"];
 
@@ -23,7 +23,7 @@ foreach ($ventas as $key => $value) {
   	/*=============================================
   	PORCENTAJES MÉTODOS DE PAGO PAYU
   	=============================================*/
-  	if($value["metodo"] == "payu"){
+  	if($value["metodo"] == "gratis"){
 
   		 $totalPayu += $value["pago"];
 
@@ -35,6 +35,26 @@ foreach ($ventas as $key => $value) {
   	=============================================*/
 	
 	if($value["metodo"] != "gratis"){
+
+		#Capturamos sólo el año y el mes
+		$fecha = substr($value["fecha"],0,7);
+
+		#Capturamos las fechas en un array
+		array_push($arrayFechas, $fecha);
+
+		#Capturamos las fechas y los pagos en un mismo array
+		$arrayFechaPago = array($fecha => $value["pago"]);
+
+		#Sumamos los pagos que ocurrieron el mismo mes
+		foreach ($arrayFechaPago as $key => $value) {
+			
+			$sumaPagosMes[$key] += $value;
+		}
+
+	}
+
+
+	if($value["metodo"] != "pago"){
 
 		#Capturamos sólo el año y el mes
 		$fecha = substr($value["fecha"],0,7);
@@ -104,7 +124,7 @@ GRÁFICO DE VENTAS
 	    
 	        <input type="text" class="knob" data-readonly="true" value="<?php echo round($porcentajePaypal); ?>" data-width="60" data-height="60" data-fgColor="#39CCCC">
 
-	        <div class="knob-label">Paypal</div>
+	        <div class="knob-label">Tarjeta</div>
 	      
 	      </div>
 
@@ -112,7 +132,7 @@ GRÁFICO DE VENTAS
 	        
 	        <input type="text" class="knob" data-readonly="true" value="<?php echo round($porcentajePayu); ?>" data-width="60" data-height="60" data-fgColor="#39CCCC">
 
-	        <div class="knob-label">Payu</div>
+	        <div class="knob-label">Efectivo</div>
 	      
 	      </div>
 

@@ -8,6 +8,10 @@ require_once "../modelos/carrito.modelo.php";
 require_once "../controladores/productos.controlador.php";
 require_once "../modelos/productos.modelo.php";
 
+
+require_once "../controladores/notificaciones.controlador.php";
+require_once "../modelos/notificaciones.modelo.php";
+require_once "../modelos/usuarios.modelo.php";
 class AjaxCarrito{
 
 	/*=============================================
@@ -77,8 +81,8 @@ class AjaxCarrito{
 
 	}
 
-}
 
+}
 /*=============================================
 MÉTODO PAYPAL
 =============================================*/	
@@ -246,9 +250,21 @@ VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
 =============================================*/	
 
 if(isset($_POST["idUsuario"])){
-
 	$deseo = new AjaxCarrito();
 	$deseo -> idUsuario = $_POST["idUsuario"];
 	$deseo -> idProducto = $_POST["idProducto"];
 	$deseo ->ajaxVerificarProducto();
 }
+
+// // Lo recibes como string y lo decodificas
+// 		$productosJson = $_POST["productos"];
+// 		$productos = json_decode($productosJson, true);
+
+// 		// Recorrer los productos
+// 		foreach ($productos as $producto) {
+// 			$id = $producto["id"];
+// 			$precio = $producto["precio"];
+// 			// Procesar...
+// 		}
+
+// 		echo json_encode(["ok" => true, "recibidos" => count($productos)]);

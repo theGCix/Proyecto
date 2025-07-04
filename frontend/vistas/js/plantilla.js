@@ -5,7 +5,7 @@ PLANTILLA
 var rutaOculta = $("#rutaOculta").val();
 
 // Herramienta TOOLTIP
-$('[data-toggle="tooltip"]').tooltip(); 
+// $('[data-toggle="tooltip"]').tooltip(); 
 
 $.ajax({
 
@@ -88,13 +88,13 @@ $(window).scroll(function(){
 	
 })
 
-$.scrollUp({
+// $.scrollUp({
 
-	scrollText:"",
-	scrollSpeed: 2000,
-	easingType: "easeOutQuint"
+// 	scrollText:"",
+// 	scrollSpeed: 2000,
+// 	easingType: "easeOutQuint"
 
-});
+// });
 
 /*=============================================
 MIGAS DE PAN

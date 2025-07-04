@@ -63,5 +63,27 @@ if(isset($_POST["id"])){
 
 }
 
+// if(isset($_POST["idUsuario"])){
+// 	$deseo = new AjaxCarrito();
+// 	$deseo -> idUsuario = $_POST["idUsuario"];
+// 	$deseo -> idProducto = $_POST["idProducto"];
+// 	$deseo ->ajaxVerificarProducto();
+// }
+
+
+// $productosJson = $_POST["productos"];
+// $productos = json_decode($productosJson, true);
+
+// // Recorrer los productos
+// foreach ($productos as $producto) {
+//     $id = $producto["idProducto"];
+//     $usuario = $producto["idUsuario"];
+//     // Procesar...
+// }
+
+// echo json_encode(["ok" => true, "recibidos" => count($productos)]);
+
+
+
 
  

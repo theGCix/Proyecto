@@ -28,13 +28,24 @@ if($banner != null){
 PRODUCTOS DESTACADOS
 =============================================*/
 
-$titulosModulos = array("ARTÍCULOS GRATUITOS", "LO MÁS VENDIDO", "LO MÁS VISTO");
-$rutaModulos = array("articulos-gratis","lo-mas-vendido","lo-mas-visto");
+$titulosModulos = array("NUEVOS INGRESOS","ARTÍCULOS GRATUITOS", "LO MÁS VENDIDO", "LO MÁS VISTO");
+$rutaModulos = array("nuevos-ingresos","articulos-gratis","lo-mas-vendido","lo-mas-visto");
 
 $base = 0;
 $tope = 8;
 
-if($titulosModulos[0] == "ARTÍCULOS GRATUITOS"){
+if($titulosModulos[0] == "NUEVOS INGRESOS"){
+
+$ordenar = "id";
+$item = "precio";
+$valor = 0 ;
+$modo = "DESC";
+
+$nuevos = ControladorProductos::ctrMostrarNuevoIngreso($ordenar, $item, $valor, $base, $tope, $modo);
+
+}
+
+if($titulosModulos[1] == "ARTÍCULOS GRATUITOS"){
 
 $ordenar = "id";
 $item = "precio";
@@ -45,7 +56,7 @@ $gratis = ControladorProductos::ctrMostrarProductos($ordenar, $item, $valor, $ba
 
 }
 
-if($titulosModulos[1] == "LO MÁS VENDIDO"){
+if($titulosModulos[2] == "LO MÁS VENDIDO"){
 
 $ordenar = "ventas";
 $item = "estado";
@@ -56,7 +67,7 @@ $ventas = ControladorProductos::ctrMostrarProductos($ordenar, $item, $valor, $ba
 
 }
 
-if($titulosModulos[2] == "LO MÁS VISTO"){
+if($titulosModulos[3] == "LO MÁS VISTO"){
 
 $ordenar = "vistas";
 $item = "estado";
@@ -67,7 +78,7 @@ $vistas = ControladorProductos::ctrMostrarProductos($ordenar, $item, $valor, $ba
 
 }
 
-$modulos = array($gratis, $ventas, $vistas);
+$modulos = array($nuevos,$gratis, $ventas, $vistas);
 
 for($i = 0; $i < count($titulosModulos); $i ++){
 

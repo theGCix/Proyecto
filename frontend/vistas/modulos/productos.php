@@ -329,7 +329,14 @@ LISTAR PRODUCTOS
 				$valor2 = 0;
 				$ordenar = "id";
 
-			}else if($rutas[0] == "lo-mas-vendido"){
+			}else if($rutas[0] == "nuevos-ingresos"){
+
+				$item2 = null;
+				$valor2 = null;
+				$ordenar = "ventas";
+
+			}
+			else if($rutas[0] == "lo-mas-vendido"){
 
 				$item2 = null;
 				$valor2 = null;

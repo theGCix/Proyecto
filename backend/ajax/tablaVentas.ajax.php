@@ -112,7 +112,13 @@ class TablaVentas{
 
 			$metodo = "<img class='img-responsive' src='vistas/img/plantilla/payu.jpg' width='300px'>";
 		
-		}else{
+		}
+		// else if($ventas[$i]["metodo"] == "pago"){
+
+		// 	$metodo = "PAGO";
+		
+		// }
+		else{
 
 			$metodo = "GRATIS";
 

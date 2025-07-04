@@ -1,11 +1,18 @@
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-      <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script> -->
       
 <?php
-    
-    $url = Ruta::ctrRuta();
 
- ?>
+
+require_once "modelos/carrito.modelo.php";
+$servidor = Ruta::ctrRutaServidor();
+$url = Ruta::ctrRuta();
+
+
+
+?>
+
+
 
 <!--=====================================
 BREADCRUMB CARRITO DE COMPRAS
@@ -90,6 +97,11 @@ TABLA CARRITO DE COMPRAS
 
 			</div>
 
+
+      <div class="segundocuerpo">
+
+      </div>
+
 			<!--=====================================
 			SUMA DEL TOTAL DE PRODUCTOS
 			======================================-->
@@ -121,147 +133,65 @@ TABLA CARRITO DE COMPRAS
 			<!--=====================================
 			BOTÓN CHECKOUT
 			======================================-->
-
 			<div class="panel-heading cabeceraCheckout">
-
-			<?php
-
-				if(isset($_SESSION["validarSesion"])){
-
-					if($_SESSION["validarSesion"] == "ok"){
-
-						echo '<a id="btnCheckout" href="#modalCheckout" data-toggle="modal" idUsuario="'.$_SESSION["id"].'"><button class="btn btn-default backColor btn-lg pull-right">REALIZAR PAGO</button></a>';
-
-					}
+        <button class="btn btn-default backColor btn-lg pull-right btnPagoExitoso">
+            REALIZAR PAGO 1
+          </button>
 
 
-				}else{
-
-					echo '<a href="#modalIngreso" data-toggle="modal"><button class="btn btn-default backColor btn-lg pull-right">REALIZAR PAGO</button></a>';
-				}
-
-			?>	
-
+          <a id="btnCheckout"
+          href="#modalCheckout"
+          data-toggle="modal"
+          >
+          <!-- <button class="btn btn-default backColor btn-lg pull-right btnPagoExitoso">
+            REALIZAR PAGO 1
+          </button> -->
+        </a>
 			</div>
-
 		</div>
-
 	</div>
-
 </div>
+
+
+<div class="modal fade" id="modalCheckout">
+  
+
+      <!-- <div class="modal-header">
+        <h4 class="modal-title">Confirmar Pago</h4>
+      </div> -->
+
+      <!-- <div class="modal-body">
+        <p><strong>Producto:</strong> <span id="checkoutTitulo"></span></p>
+        <p><strong>Precio:</strong> S/. <span id="checkoutPrecio"></span></p>
+
+        <input type="hidden" id="inputUsuario">
+        <input type="hidden" id="inputTitulo">
+        <input type="hidden" id="inputPrecio">
+      </div> -->
+
+      <!-- <div class="modal-footer">
+        <button type="button" id="btnConfirmarPago" class="btn btn-success">Pagar</button>
+      </div> -->
+
+    
+</div>
+
+
 
 <!--=====================================
 VENTANA MODAL PARA CHECKOUT
 ======================================-->
-
-<div id="modalCheckout" class="modal fade modalFormulario" role="dialog">
+<!-- <div id="modalCheckout" class="modal fade modalFormulario" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-
+        
       <div class="modal-body modalTitulo">
-        <h3 class="backColor">REALIZAR PAGO</h3>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <<h3 class="backColor btnRealizarPago">REALIZAR PAGO</h3> -->
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
 
-        <div class="contenidoCheckout">
-          <?php
-          $respuesta = ControladorCarrito::ctrMostrarTarifas();
-          echo '
-            <input type="hidden" id="tasaImpuesto" value="'.$respuesta["impuesto"].'">
-            <input type="hidden" id="envioNacional" value="'.$respuesta["envioNacional"].'">
-            <input type="hidden" id="envioInternacional" value="'.$respuesta["envioInternacional"].'">
-            <input type="hidden" id="tasaMinimaNal" value="'.$respuesta["tasaMinimaNal"].'">
-            <input type="hidden" id="tasaMinimaInt" value="'.$respuesta["tasaMinimaInt"].'">
-            <input type="hidden" id="tasaPais" value="'.$respuesta["pais"].'">
-          ';
-          ?>
+        
 
-          <div class="formEnvio row">
-            <h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
-            <div class="col-xs-12 seleccionePais"></div>
-          </div>
-
-          <br>
-
-          <div class="formaPago row">
-            <h4 class="text-center well text-muted text-uppercase">Elige la forma de pago</h4>
-            <figure class="col-xs-6">
-              <center>
-                <input id="checkPaypal" type="radio" name="pago" value="paypal" checked>
-              </center>
-              <img src="<?php echo $url; ?>vistas/img/plantilla/paypal.jpg" class="img-thumbnail">
-            </figure>
-          </div>
-
-          <br>
-
-          <div class="listaProductos row">
-            <h4 class="text-center well text-muted text-uppercase">Productos a comprar</h4>
-            <table class="table table-striped tablaProductos">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-
-            <div class="col-sm-6 col-xs-12 pull-right">
-              <table class="table table-striped tablaTasas">
-                <tbody>
-                  <tr>
-                    <td>Subtotal</td>
-                    <td><span class="cambioDivisa">S/ </span><span class="valorSubtotal" valor="0">0</span></td>
-                  </tr>
-                  <tr>
-                    <td>Envío</td>
-                    <td><span class="cambioDivisa">S/ </span><span class="valorTotalEnvio" valor="0">0</span></td>
-                  </tr>
-                  <tr>
-                    <td>Impuesto</td>
-                    <td><span class="cambioDivisa">S/ </span><span class="valorTotalImpuesto" valor="0">0</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong><span class="cambioDivisa">S/ </span><span class="valorTotalCompra" valor="0">0</span></strong></td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div class="divisa">
-                <select class="form-control" id="cambiarDivisa" name="divisa"></select>
-                <br>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <form class="formPayu" style="display:none">
-              <input name="merchantId" type="hidden" value=""/>
-              <input name="accountId" type="hidden" value=""/>
-              <input name="description" type="hidden" value=""/>
-              <input name="referenceCode" type="hidden" value=""/>
-              <input name="amount" type="hidden" value=""/>
-              <input name="tax" type="hidden" value=""/>
-              <input name="taxReturnBase" type="hidden" value=""/>
-              <input name="shipmentValue" type="hidden" value=""/>
-              <input name="currency" type="hidden" value=""/>
-              <input name="lng" type="hidden" value="es"/>
-              <input name="confirmationUrl" type="hidden" value=""/>
-              <input name="responseUrl" type="hidden" value=""/>
-              <input name="declinedResponseUrl" type="hidden" value=""/>
-              <input name="displayShippingInformation" type="hidden" value=""/>
-              <input name="test" type="hidden" value=""/>
-              <input name="signature" type="hidden" value=""/>
-              <input name="Submit" class="btn btn-block btn-lg btn-default backColor" type="submit" value="PAGAR">
-            </form>
-
-            <button class="btn btn-block btn-lg btn-default backColor btnPago">PAGAR</button>
-          </div>
-        </div>
-
-        <div class="contenidoPagoFinal" style="display:none;">
+        <!-- <div class="contenidoPagoFinal" style="display:none;">
           <form id="msform">
             <ul id="progressbar">
               <li class="active">Medio de Pago</li>
@@ -303,22 +233,28 @@ VENTANA MODAL PARA CHECKOUT
               <p>Tarjeta Nro: 4512*********2365</p>
               <input type="button" name="previous" class="previous action-button" value="Volver" />
               <input type="submit" name="submit" class="submit action-button btnPayment" value="Pagar" />
+			
+			  
             </fieldset>
           </form>
-          <!-- <script src="script.js"></script> -->
 
 		  <div class="contenidoPagoExitoso" style="display:none;">
           
-        </div>
-        </div>
+      </div>
+        </div> -->
 
         
 
-      </div> <!-- cierre de modal-body -->
+      </div> 
 
-    </div> <!-- cierre de modal-content -->
-  </div> <!-- cierre de modal-dialog -->
-</div> <!-- cierre de modal -->
+    </div> 
+  </div> 
+</div> 
+
+
+
+
+
 
 <!-- PASARELA DE PAGO
 <div id="pasarelaPago" class="modal fade modalFormulario" role="dialog">

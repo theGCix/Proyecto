@@ -100,7 +100,25 @@ class ModeloProductos{
 
 	}
 
-
+/**=============================================
+ * MostrarNuevoIngreso
+ =============================================*/
+	static public function mdlMostrarNuevoIngreso($tabla, $ordenar, $item, $valor, $base, $tope, $modo){
+	if($item != null){
+		// Filtrar por $item distinto de $valor
+		// Cambia el "=" por "<>"
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item <> :$item ORDER BY $ordenar $modo LIMIT $base, $tope");
+		$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	} else {
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY $ordenar $modo LIMIT $base, $tope");
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+	$stmt->close();
+	$stmt = null;
+}
 	/*=============================================
 	MOSTRAR INFOPRODUCTO
 	=============================================*/
@@ -121,6 +139,24 @@ class ModeloProductos{
 
 	}
 
+	static public function mdlMostrarInfoProducto1($tabla, $item, $valor) {
+
+        try {
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor");
+
+            $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve un solo producto
+
+        } catch (PDOException $e) {
+            echo "Error al consultar producto: " . $e->getMessage();
+            return false;
+        }
+
+	
+	}
 	/*=============================================
 	LISTAR PRODUCTOS
 	=============================================*/

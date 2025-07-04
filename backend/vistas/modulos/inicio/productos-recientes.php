@@ -49,7 +49,7 @@ PRODUCTOS RECIENTES
 
 				         }else{
 
-				         	echo '<span class="label label-warning pull-right">$'.$productos[$i]["precio"].'</span></a>';
+				         	echo '<span class="label label-warning pull-right">S/'.$productos[$i]["precio"].'</span></a>';
 
 				        }
 				              

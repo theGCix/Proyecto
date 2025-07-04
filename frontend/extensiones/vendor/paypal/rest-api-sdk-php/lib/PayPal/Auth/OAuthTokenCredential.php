@@ -85,7 +85,7 @@ class OAuthTokenCredential extends PayPalResourceModel
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->cipher = new Cipher($this->clientSecret);
+        // $this->cipher = new Cipher($this->clientSecret);
     }
 
     /**

@@ -48,8 +48,7 @@ INFOPRODUCTOS
 				/*=============================================
 				VISOR DE IMÁGENES
 				=============================================*/
-
-				if($infoproducto["tipo"] == "fisico"){
+					if($infoproducto["tipo"] == "fisico"){
 
 					echo '<div class="col-md-5 col-sm-6 col-xs-12 visorImg">
 						
@@ -97,7 +96,7 @@ INFOPRODUCTOS
 
 					</div>';
 
-				}			
+				}				
 
 			?>
 
@@ -639,18 +638,16 @@ INFOPRODUCTOS
 
 						}else{
 
-							echo '<a href="#modalIngreso" data-toggle="modal">
-
-								<button class="btn btn-default btn-block btn-lg backColor">	SOLICITAR AHORA</button>
-
-							</a>';
+							echo '<button class="btn btn-default btn-block btn-lg backColor agregarPago" idProducto="'
+							.$infoproducto["id"].'" idUsuario="'.$_SESSION["id"].'" tipo="'.$infoproducto["tipo"].'" titulo="'
+							.$infoproducto["titulo"].'">COMPRAR AHORA</button>';
 
 						}
 
 						echo '</div>';
 
 					}else{
-
+						
 						if($infoproducto["tipo"]=="virtual"){
 
 							echo '<div class="col-md-6 col-xs-12">';
@@ -659,14 +656,14 @@ INFOPRODUCTOS
 
 								if($_SESSION["validarSesion"] == "ok"){
 
-									echo '<a id="btnCheckout" href="#modalComprarAhora" data-toggle="modal" idUsuario="'.$_SESSION["id"].'"><button class="btn btn-default btn-block btn-lg">
+									echo '<a id="btnCheckout" href="#modalComprarAhora" data-toggle="modal" idUsuario="'.$_SESSION["id"].'"><button class="btn btn-default btn-block btn-lg agregarPago" >
 									<small>COMPRAR AHORA</small></button></a>';
 
 								}
 
 							}else{
 
-								echo '<a href="#modalIngreso" data-toggle="modal"><button class="btn btn-default btn-block btn-lg">
+								echo '<a href="#modalIngreso" data-toggle="modal"><button class="btn btn-default btn-block btn-lg agregarPago">
 									<small>COMPRAR AHORA</small></button></a>';
 			
 							}
@@ -677,16 +674,28 @@ INFOPRODUCTOS
 
 								if($infoproducto["oferta"] != 0){
 									
-									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito agregarPago"  
+									idProducto="'.$infoproducto["id"].'" 
+									imagen="'.$servidor.$infoproducto["portada"].'" 
+									titulo="'.$infoproducto["titulo"].'" 
+									precio="'.$infoproducto["precioOferta"].'" 
+									tipo="'.$infoproducto["tipo"].'" 
+									peso="'.$infoproducto["peso"].'">';
 
 								}else{
 
-									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precio"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito agregarPago"  
+									idProducto="'.$infoproducto["id"].'" 
+									imagen="'.$servidor.$infoproducto["portada"].'" 
+									titulo="'.$infoproducto["titulo"].'" 
+									precio="'.$infoproducto["precio"].'" 
+									tipo="'.$infoproducto["tipo"].'" 
+									peso="'.$infoproducto["peso"].'">';
 
 
 								}
 
-								echo   '<small>ADICIONAR AL CARRITO</small> 
+								echo   '<small>ADICIONAR AL CARRITO22222</small> 
 
 									<i class="fa fa-shopping-cart col-md-0"></i>
 
@@ -699,16 +708,28 @@ INFOPRODUCTOS
 
 							if($infoproducto["oferta"] != 0){
 									
-									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  
+									idProducto="'.$infoproducto["id"].'" 
+									imagen="'.$servidor.$infoproducto["portada"].'" 
+									titulo="'.$infoproducto["titulo"].'" 
+									precio="'.$infoproducto["precioOferta"].'" 
+									tipo="'.$infoproducto["tipo"].'" 
+									peso="'.$infoproducto["peso"].'">';
 
 								}else{
 
-									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precio"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  
+									idProducto="'.$infoproducto["id"].'" 
+									imagen="'.$servidor.$infoproducto["portada"].'" 
+									titulo="'.$infoproducto["titulo"].'" 
+									precio="'.$infoproducto["precio"].'" 
+									tipo="'.$infoproducto["tipo"].'" 
+									peso="'.$infoproducto["peso"].'">';
 
 								}
 
 
-									echo 'ADICIONAR AL CARRITO 
+									echo 'ADICIONAR AL CARRITO_1 
 
 									<i class="fa fa-shopping-cart"></i>
 
@@ -716,6 +737,73 @@ INFOPRODUCTOS
 
 								</div>';
 
+						}
+
+						if($infoproducto["tipo"]=="virtual"){
+
+							echo '<div class="col-md-6 col-xs-12">';
+
+							if(isset($_SESSION["validarSesion"])){
+
+								if($_SESSION["validarSesion"] == "ok"){
+
+									echo '<button class="btn btn-default btn-block btn-lg agregarPago" >
+									<small>COMPRAR AHORA</small></button></a>';
+
+								}
+
+							}else{
+
+								echo '<button class="btn btn-default btn-block btn-lg agregarPago">
+									<small>COMPRAR AHORA</small></button></a>';
+			
+							}
+
+							echo '</div>
+
+								<div class="col-md-6 col-xs-12">';
+
+								if($infoproducto["oferta"] != 0){
+									// agregarCarrito
+									echo '<button class="btn btn-default btn-block btn-lg backColor  agregarPago"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+
+								}else{
+									//agregarCarrito
+									echo '<button class="btn btn-default btn-block btn-lg backColor  agregarPago"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precio"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">';
+
+
+								}
+
+								echo   '<small>ADICIONAR AL CARRITO1</small> 
+
+									<i class="fa fa-shopping-cart col-md-0"></i>
+
+									</button>
+
+								</div>';
+						}else{
+
+							echo '<div class="col-lg-6 col-md-8 col-xs-12">';
+
+							if($infoproducto["oferta"] != 0){
+									
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarPago" 
+									idProducto="'.$infoproducto["id"].
+									'" idUsuario="'.$_SESSION["id"].
+									'" tipo="'.$infoproducto["tipo"].
+									'" titulo="'.$infoproducto["titulo"].
+									'" precio="'.$infoproducto["precio"].
+									'">COMPRAR AHORA   2</button>';
+
+								}else{
+									echo '<button class="btn btn-default btn-block btn-lg backColor agregarPago" 
+									idProducto="'.$infoproducto["id"].
+									'" idUsuario="'.$_SESSION["id"].
+									'" tipo="'.$infoproducto["tipo"].
+									'" titulo="'.$infoproducto["titulo"].
+									'">COMPRAR AHORA   2.1</button>';
+
+								}
 						}
 
 					}
@@ -906,18 +994,21 @@ INFOPRODUCTOS
 			?>
 
 					
-				</a></li>
+						</a></li>
 
-			</ul>
+					</ul>
 
-			<br>
+					<br>
 
 		</div>
 
 		<div class="row comentarios">
+<!-- 
+		<ul class="nav nav-tabs"></ul> -->
 
 		<?php
-
+		// echo '<li class="active"><a>COMENTARIOS '.$cantidad.'</a></li>
+		// 				  <li><a id="verMas" href="">Ver más</a></li>';
 		foreach ($comentarios as $key => $value) {
 			
 			if($value["comentario"] != ""){
@@ -1158,7 +1249,6 @@ ARTÏCULOS RELACIONADOS
 
 						</figure>
 
-						'.$value["id"].'
 
 						<h4>
 				
@@ -1206,7 +1296,7 @@ ARTÏCULOS RELACIONADOS
 
 										<small>
 					
-											<strong class="oferta">S/ '.$value["precio"].'</strong>
+											<strong class="oferta">S/'.$value["precio"].'</strong>
 
 										</small>
 
@@ -1216,7 +1306,7 @@ ARTÏCULOS RELACIONADOS
 
 							}else{
 
-								echo '<h2><small>S/ '.$value["precio"].'</small></h2>';
+								echo '<h2><small>S/'.$value["precio"].'</small></h2>';
 
 							}
 							

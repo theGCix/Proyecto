@@ -140,7 +140,7 @@ FINAL
 			
 			<div class="col-sm-6 col-xs-12 text-left text-muted">
 				
-				<h5>&copy; 2017 Todos los derechos reservados. Sitio elaborado por la Compañía</h5>
+				<h5>&copy; Todos los derechos reservados. Sitio elaborado por la Compañía</h5>
 
 			</div>
 

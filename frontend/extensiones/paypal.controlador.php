@@ -3,18 +3,18 @@
 require_once "../modelos/rutas.php";
 require_once "../modelos/carrito.modelo.php";
 
-use PayPal\Api\Amount;
-use PayPal\Api\Details;
-use PayPal\Api\Item;
-use PayPal\Api\ItemList;
-use PayPal\Api\Payer;
-use PayPal\Api\Payment;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction;
+// use PayPal\Api\Amount;
+// use PayPal\Api\Details;
+// use PayPal\Api\Item;
+// use PayPal\Api\ItemList;
+// use PayPal\Api\Payer;
+// use PayPal\Api\Payment;
+// use PayPal\Api\RedirectUrls;
+// use PayPal\Api\Transaction;
 
 class Paypal{
 
-	static public function mdlPagoPaypal($datos){
+	static public function mdlPagoPaypal1($datos){
 
 		require __DIR__ . '/bootstrap.php';
 
@@ -54,7 +54,7 @@ class Paypal{
 
     	#definimos el pago total con sus detalles
     	$amount = new Amount();
-		$amount ->setCurrency($datos["divisa"])
+		$amount 
 		    	->setTotal($datos["total"])
 		    	->setDetails($details);	
 
@@ -81,29 +81,29 @@ class Paypal{
 			    ->setTransactions(array($transaction));
 
 		#Tratar de ejcutar un proceso y si falla ejecutar una rutina de error
-		try {
-		    // traemos las credenciales $apiContext
-		    $payment->create($apiContext);   
+		// try {
+		//     // traemos las credenciales $apiContext
+		//     $payment->create($apiContext);   
 		   
-		}
-		catch(PayPal\Exception\PayPalConnectionException $ex){
+		// }
+		// catch(PayPal\Exception\PayPalConnectionException $ex){
 
-			echo $ex->getCode(); // Prints the Error Code
-			echo $ex->getData(); // Prints the detailed error message 
-			die($ex);
-			return "$url/error";
+		// 	echo $ex->getCode(); // Prints the Error Code
+		// 	echo $ex->getData(); // Prints the detailed error message 
+		// 	die($ex);
+		// 	return "$url/error";
 
-		}
+		// }
 
 		# utilizamos un foreach para iterar sobre $payment, utilizamos el método llamado getLinks() para obtener todos los enlaces que aparecen en el array $payment y caso de que $Link->getRel() coincida con 'approval_url' extraemos dicho enlace, finalmente enviamos al usuario a esa dirección que guardamos en la variable $redirectUrl on el método getHref();
 
-		foreach ($payment->getLinks() as $link) {
+		// foreach ($payment->getLinks() as $link) {
 			
-			if($link->getRel() == "approval_url"){
+		// 	if($link->getRel() == "approval_url"){
 
-				$redirectUrl = $link->getHref();
-			}
-		}
+		// 		$redirectUrl = $link->getHref();
+		// 	}
+		// }
 
 		return $redirectUrl;
 	}
