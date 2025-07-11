@@ -471,9 +471,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `password`, `email`, `modo`, `foto`, `ve
 -- Estructura de tabla para la tabla `visitaspaises`
 --
 
-CREATE TABLE `visitaspaises` (
+CREATE TABLE `visitasdistritos` (
   `id` int(11) NOT NULL,
-  `pais` text NOT NULL,
+  `distrito` text NOT NULL,
   `codigo` text NOT NULL,
   `cantidad` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -502,7 +502,7 @@ INSERT INTO `visitaspaises` (`id`, `pais`, `codigo`, `cantidad`, `fecha`) VALUES
 CREATE TABLE `visitaspersonas` (
   `id` int(11) NOT NULL,
   `ip` text NOT NULL,
-  `pais` text NOT NULL,
+  `distrito` text NOT NULL,
   `visitas` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -512,12 +512,12 @@ CREATE TABLE `visitaspersonas` (
 --
 
 INSERT INTO `visitaspersonas` (`id`, `ip`, `pais`, `visitas`, `fecha`) VALUES
-(1, '153.202.197.216', 'Japan', 1, '2017-11-08 18:37:07'),
-(94, '::1', 'Unknown', 1, '2025-05-23 15:56:21'),
-(95, '::1', 'Unknown', 1, '2025-05-25 23:00:47'),
-(96, '127.0.0.1', 'Unknown', 1, '2025-05-25 23:12:23'),
-(97, '::1', 'Unknown', 1, '2025-05-26 15:43:00'),
-(98, '::1', 'Unknown', 1, '2025-05-27 18:48:58');
+(100, '153.202.197.216', 'Carabayllo', 1, '2017-11-08 18:37:07'),
+(101, '::1', 'Carabayllo', 1, '2025-05-23 15:56:21'),
+(102, '::1', 'Ancón', 1, '2025-05-25 23:00:47'),
+(103, '127.0.0.1', 'Ancón', 1, '2025-05-25 23:12:23'),
+(104, '::1', 'Breña', 1, '2025-05-26 15:43:00'),
+(105, '::1', 'Breña', 1, '2025-05-27 18:48:58');
 
 --
 -- Índices para tablas volcadas

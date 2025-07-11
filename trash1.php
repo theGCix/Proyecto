@@ -351,3 +351,155 @@ class Paypal{
                     .$infoproducto["titulo"].'">COMPRAR AHORA</button>';
     };
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+/*=============================================
+CREADOR DE IP
+=============================================*/
+
+//https://www.browserling.com/tools/random-ip
+
+$ip = $_SERVER['REMOTE_ADDR'];
+
+//$ip = "153.205.198.22";
+
+//http://www.geoplugin.net/
+
+$informacionDistrito = file_get_contents("http://www.geoplugin.net/".$ip);
+
+$datosDistrito = json_decode($informacionDistrito);
+
+$distrito = $datosDistrito->geoplugin_countryName;
+$codigo = $datosDistrito->geoplugin_countryCode;
+
+$enviarIp = ControladorVisitas::ctrEnviarIp($ip, $distrito, $codigo);
+
+$totalVisitas = ControladorVisitas::ctrMostrarTotalVisitas();
+
+?>
+
+
+
+<!--=====================================
+MÓDULO VISITAS
+======================================-->
+
+<div class="container-fluid">
+	
+	<div class="container">
+		
+		<div class="row">
+
+		<?php
+
+		$Distritoes = ControladorVisitas::ctrMostrarDistritos();
+
+		$coloresDistritoes = array("#09F","#900","#059","#260","#F09","#02A");	
+
+		$indice = -1;
+
+		foreach($Distritoes as $key => $value){
+
+			$promedio = $value["cantidad"] * 100 / $totalVisitas["total"];
+
+			$indice++;
+	
+			echo '<div class="col-md-2 col-sm-4 col-xs-12 text-center">
+				
+					<h2 class="text-muted">'.$value["Distrito"].'</h2>
+
+					<input type="text" class="knob" value="'.round($promedio).'" data-width="90" data-height="90" data-fgcolor="'.$coloresDistritoes[$indice].'" data-readonly="true">
+ 
+					<p class="text-muted text-center" style="font-size:12px"> '.round($promedio).'% de las visitas</p>
+	
+				</div>';
+		}
+	
+
+
+		?>
+
+		</div>
+
+	</div>
+
+</div>

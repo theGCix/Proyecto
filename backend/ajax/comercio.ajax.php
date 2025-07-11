@@ -109,7 +109,7 @@ class AjaxComercio{
 	public $envioInternacional;
 	public $tasaMinimaNal;
 	public $tasaMinimaInt;
-	public $seleccionarPais;
+	public $seleccionarDistrito;
 	public $modoPaypal;
 	public $clienteIdPaypal;
 	public $llaveSecretaPaypal;
@@ -125,7 +125,7 @@ class AjaxComercio{
 						"envioInternacional"=>$this->envioInternacional,
 						"tasaMinimaNal"=>$this->tasaMinimaNal,
 						"tasaMinimaInt"=>$this->tasaMinimaInt,
-						"seleccionarPais"=>$this->seleccionarPais,
+						"seleccionarDistrito"=>$this->seleccionarDistrito,
 						"modoPaypal"=>$this->modoPaypal,
 						"clienteIdPaypal"=>$this->clienteIdPaypal,
 						"llaveSecretaPaypal"=>$this->llaveSecretaPaypal,
@@ -218,7 +218,7 @@ if(isset($_POST["impuesto"])){
 	$informacion -> envioInternacional = $_POST["envioInternacional"];
 	$informacion -> tasaMinimaNal = $_POST["tasaMinimaNal"];
 	$informacion -> tasaMinimaInt = $_POST["tasaMinimaInt"];
-	$informacion -> seleccionarPais = $_POST["seleccionarPais"];
+	$informacion -> seleccionarDistrito = $_POST["seleccionarDistrito"];
 	$informacion -> modoPaypal = $_POST["modoPaypal"];
 	$informacion -> clienteIdPaypal = $_POST["clienteIdPaypal"];
 	$informacion -> llaveSecretaPaypal = $_POST["llaveSecretaPaypal"];

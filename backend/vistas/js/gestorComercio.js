@@ -445,7 +445,7 @@ SELECCIONAR PAIS
 =============================================*/
 
 $.ajax({
-	url:"vistas/js/countries.json",
+	url:"vistas/js/distritos.json",
 	type: "GET",
 	cache: false,
 	contentType: false,
@@ -453,21 +453,20 @@ $.ajax({
 	dataType:"json",
 	success: function(respuesta){
 
-		respuesta.forEach(seleccionarPais);
+		respuesta.forEach(seleccionarDistritos);
 
-		function seleccionarPais(item, index){
+		function seleccionarDistritos(item, index){
 
-			var pais = item.name;
-			var codPais = item.code;
+			var distrito = item.name;
 
-			if($("#codigoPais").val() == codPais){
+			if($("#distrito").val() == distrito){
 
-				$("#paisSeleccionado").attr("value",codPais);
-				$("#paisSeleccionado").html(pais);
+				$("#distritoSeleccionado").attr("value",distrito);
+				$("#distritoSeleccionado").html(distrito);
 
 			}
 
-			$("#seleccionarPais").append('<option value="'+codPais+'">'+pais+'</option>');
+			$("#seleccionarDistritos").append('<option value="'+distrito+'">'+distrito+'</option>');
 
 		}
 
@@ -484,7 +483,7 @@ var envioNacional = $("#envioNacional").val();
 var envioInternacional = $("#envioInternacional").val();
 var tasaMinimaNal = $("#tasaMinimaNal").val();
 var tasaMinimaInt = $("#tasaMinimaInt").val();
-var seleccionarPais = $("#codigoPais").val();
+var seleccionarDistritos = $("#distrito").val();
 var clienteIdPaypal = $("#clienteIdPaypal").val();
 var llaveSecretaPaypal = $("#llaveSecretaPaypal").val();
 var merchantIdPayu = $("#merchantIdPayu").val();
@@ -542,7 +541,7 @@ $(".cambioInformacion").change(function(){
 
 	tasaMinimaInt = $("#tasaMinimaInt").val();
 
-	seleccionarPais = $("#seleccionarPais").val();
+	seleccionarDistritos = $("#seleccionarDistritos").val();
 
 	modoPaypal = $("input[name='modoPaypal']:checked").val();
 
@@ -578,7 +577,7 @@ function cambiarInformacion(modoPaypal, modoPayu){
 	datos.append("envioInternacional", envioInternacional);
 	datos.append("tasaMinimaNal", tasaMinimaNal);
 	datos.append("tasaMinimaInt", tasaMinimaInt);
-	datos.append("seleccionarPais", seleccionarPais);
+	datos.append("seleccionarDistritos", seleccionarDistritos);
 	datos.append("modoPaypal", modoPaypal);	
 	datos.append("clienteIdPaypal", clienteIdPaypal);
 	datos.append("llaveSecretaPaypal", llaveSecretaPaypal);

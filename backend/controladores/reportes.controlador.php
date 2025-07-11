@@ -34,112 +34,63 @@ class ControladorReportes{
 			REPORTE DE COMPRAS Y VENTAS
 			=============================================*/
 
-			if($_GET["reporte"] == "compras"){	
+			if ($_GET["reporte"] == "compras") {	
 
-				echo utf8_decode("
+    echo mb_convert_encoding("
+        <table border='0'> 
+            <tr> 
+                <td style='font-weight:bold; border:1px solid #eee;'>PRODUCTO</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>CLIENTE</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>VENTA</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>TIPO</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>PROCESO DE ENVÍO</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>MÉTODO</td>
+                <td style='font-weight:bold; border:1px solid #eee;'>EMAIL</td>		
+                <td style='font-weight:bold; border:1px solid #eee;'>DIRECCIÓN</td>		
+                <td style='font-weight:bold; border:1px solid #eee;'>DISTRITO</td>	
+                <td style='font-weight:bold; border:1px solid #eee;'>FECHA</td>		
+            </tr>", 'ISO-8859-1', 'UTF-8');
 
-					<table border='0'> 
+    foreach ($reporte as $key => $value) {
 
-						<tr> 
-						
-							<td style='font-weight:bold; border:1px solid #eee;'>PRODUCTO</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>CLIENTE</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>VENTA</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>TIPO</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>PROCESO DE ENVÍO</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>MÉTODO</td>
-							<td style='font-weight:bold; border:1px solid #eee;'>EMAIL</td>		
-							<td style='font-weight:bold; border:1px solid #eee;'>DIRECCIÓN</td>		
-							<td style='font-weight:bold; border:1px solid #eee;'>PAÍS</td	
-							<td style='font-weight:bold; border:1px solid #eee;'>FECHA</td>		
+        $item = "id";
+        $valor = $value["id_producto"];
+        $traerProducto = ControladorProductos::ctrMostrarProductos($item, $valor);
 
-						</tr>");
+        $item2 = "id";
+        $valor2 = $value["id_usuario"];
+        $traerCliente = ControladorUsuarios::ctrMostrarUsuarios($item2, $valor2);
 
-				foreach ($reporte as $key => $value) {
+        if ($value["envio"] == 0 && $traerProducto[0]["tipo"] == "virtual") {
+            $envio = "Entrega inmediata";
+        } else if ($value["envio"] == 0 && $traerProducto[0]["tipo"] == "fisico") {
+            $envio = "Despachando el producto";
+        } else if ($value["envio"] == 1 && $traerProducto[0]["tipo"] == "fisico") {
+            $envio = "Enviando el producto";
+        } else {
+            $envio = "Producto entregado";
+        }
 
-					/*=============================================
-					TRAER PRODUCTO
-					=============================================*/
-					$item = "id";
-					$valor = $value["id_producto"];
+        $email = (!empty($value["email"])) ? $value["email"] : $traerCliente["email"];
 
-					$traerProducto = ControladorProductos::ctrMostrarProductos($item, $valor);
+        echo mb_convert_encoding("
+            <tr>
+                <td style='border:1px solid #eee;'>".$traerProducto[0]["titulo"]."</td>
+                <td style='border:1px solid #eee;'>".$traerCliente["nombre"]."</td>
+                <td style='border:1px solid #eee;'>$ ".number_format($value["pago"], 2)."</td>
+                <td style='border:1px solid #eee;'>".$traerProducto[0]["tipo"]."</td>
+                <td style='border:1px solid #eee;'>".$envio."</td>
+                <td style='border:1px solid #eee;'>".$value["metodo"]."</td>
+                <td style='border:1px solid #eee;'>".$email."</td>
+                <td style='border:1px solid #eee;'>".$value["direccion"]."</td>
+                <td style='border:1px solid #eee;'>".$value["distrito"]."</td>
+                <td style='border:1px solid #eee;'>".$value["fecha"]."</td>
+            </tr>", 'ISO-8859-1', 'UTF-8');
+    }
 
-					/*=============================================
-					TRAER CLIENTE
-					=============================================*/
+    echo mb_convert_encoding("</table>", 'ISO-8859-1', 'UTF-8');
+}
 
-					$item2 = "id";
-					$valor2 = $value["id_usuario"];
-
-					$traerCliente = ControladorUsuarios::ctrMostrarUsuarios($item2, $valor2);
-
-					 echo utf8_decode("
-
-					 	<tr>
-							<td style='border:1px solid #eee;'>".$traerProducto[0]["titulo"]."</td>
-							<td style='border:1px solid #eee;'>".$traerCliente["nombre"]."</td>
-							<td style='border:1px solid #eee;'>$ ".number_format($value["pago"],2)."</td>
-							<td style='border:1px solid #eee;'>".$traerProducto[0]["tipo"]."</td>
-							<td style='border:1px solid #eee;'>
-
-					 ");
-
-				 	/*=============================================
-					TRAER PROCESO DE ENVÍO
-					=============================================*/
-
-					if($value["envio"] == 0 && $traerProducto[0]["tipo"] == "virtual"){
-
-						$envio = "Entrega inmediata";
-					
-					}else if($value["envio"] == 0 && $traerProducto[0]["tipo"] == "fisico"){
-
-						$envio ="Despachando el producto";
-
-					}else if($value["envio"] == 1 && $traerProducto[0]["tipo"] == "fisico"){
-
-						$envio = "Enviando el producto";
-
-					}else{
-
-						$envio = "Producto entregado";
-
-					}
-
-					 echo utf8_decode($envio."</td>
-									<td style='border:1px solid #eee;'>".$value["metodo"]."</td>
-									<td style='border:1px solid #eee;'>
-					 ");
-
-				  /*=============================================
-					TRAER EMAIL CLIENTE
-					=============================================*/
-
-					if($value["email"] == ""){
-
-						$email = $traerCliente["email"];
-
-					}else{
-
-						$email = $value["email"];
-					
-					}
-
-					echo utf8_decode($email."</td>
-			 					  	 <td style='border:1px solid #eee;'>".$value["direccion"]."</td>
-			 					  	 <td style='border:1px solid #eee;'>".$value["pais"]."</td>
-			 					  	 <td style='border:1px solid #eee;'>".$value["fecha"]."</td>
-			 					  	 </tr>"); 		
-
-				}
-
-
-				echo utf8_decode("</table>
-
-					");
-
-			}
 
 			/*=============================================
 			REPORTE DE VISITAS
@@ -161,7 +112,7 @@ class ControladorReportes{
 					 echo utf8_decode("<tr>
 				 			
 				 						<td style='border:1px solid #eee;'>".$value["ip"]."</td>
-				 						<td style='border:1px solid #eee;'>".$value["pais"]."</td>
+				 						<td style='border:1px solid #eee;'>".$value["distrito"]."</td>
 				 						<td style='border:1px solid #eee;'>".$value["visitas"]."</td>
 				 						<td style='border:1px solid #eee;'>".$value["fecha"]."</td>
 			 					  	 

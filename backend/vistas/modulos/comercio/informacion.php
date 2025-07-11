@@ -99,17 +99,17 @@ $comercio = ControladorComercio::ctrSeleccionarComercio();
 	    
 	    </div>
 
-	    <!-- SELECCIONAR PAÍS -->
+	    <!-- SELECCIONAR distrito -->
 
 	    <div class="form-group">
       
-	      <label for="sel1">Seleccione País:</label>
+	      <label for="sel1">Seleccione Distrito:</label>
 
-	      <input type="hidden" id="codigoPais" value="<?php echo $comercio["pais"]; ?>">
+	      <input type="hidden" id="distrito" value="<?php echo $comercio["distrito"]; ?>">
 	      
-	      <select class="form-control cambioInformacion" id="seleccionarPais">
+	      <select class="form-control cambioInformacion" id="seleccionarDistrito">
 
-	      	<option id="paisSeleccionado"></option>
+	      	<option id="distritoSeleccionado"></option>
 	       
 	      </select>
 

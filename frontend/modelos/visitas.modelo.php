@@ -27,12 +27,12 @@ class ModeloVisitas{
 	GUARDAR IP NUEVA
 	=============================================*/
 
-	static public function mdlGuardarNuevaIp($tabla, $ip, $pais, $visita){
+	static public function mdlGuardarNuevaIp($tabla, $ip, $distrito, $visita){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(ip, pais, visitas) VALUES (:ip, :pais, :visitas)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(ip, distrito, visitas) VALUES (:ip, :distrito, :visitas)");
 
 		$stmt->bindParam(":ip", $ip, PDO::PARAM_STR);
-		$stmt->bindParam(":pais", $pais, PDO::PARAM_STR);
+		$stmt->bindParam(":distrito", $distrito, PDO::PARAM_STR);
 		$stmt->bindParam(":visitas", $visita, PDO::PARAM_INT);
 	
 		if($stmt->execute()){
@@ -50,14 +50,14 @@ class ModeloVisitas{
 	}
 
 	/*=============================================
-	SELECCIONAR PAÍS
+	SELECCIONAR distrito
 	=============================================*/
 	
-	static public function mdlSeleccionarPais($tabla, $pais){
+	static public function mdlseleccionarDistrito($tabla, $distrito){
 		
-		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE pais = :pais");
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE distrito = :distrito");
 		
-		$stmt->bindParam(":pais", $pais, PDO::PARAM_STR);
+		$stmt->bindParam(":distrito", $distrito, PDO::PARAM_STR);
 
 		$stmt -> execute();
 
@@ -71,13 +71,13 @@ class ModeloVisitas{
 
 
 	/*=============================================
-	INSERTAR PAIS
+	INSERTAR distrito
 	=============================================*/
-	static public function mdlInsertarPais($tabla, $pais, $cantidad, $codigo){
+	static public function mdlInsertardistrito($tabla, $distrito, $cantidad, $codigo){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(pais, codigo, cantidad) VALUES (:pais, :codigo, :cantidad)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(distrito, codigo, cantidad) VALUES (:distrito, :codigo, :cantidad)");
 
-		$stmt->bindParam(":pais", $pais, PDO::PARAM_STR);
+		$stmt->bindParam(":distrito", $distrito, PDO::PARAM_STR);
 		$stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
 		$stmt->bindParam(":cantidad", $cantidad, PDO::PARAM_INT);
 
@@ -97,15 +97,15 @@ class ModeloVisitas{
 	}
 
 	/*=============================================
-	SI EXISTE EL PAÍS ACTUALIZAR NUEVA VISITA
+	SI EXISTE EL distrito ACTUALIZAR NUEVA VISITA
 	=============================================*/	
 
-	static public function mdlActualizarPais($tabla, $pais, $actualizarCantidad){
+	static public function mdlActualizarDistrito($tabla, $distrito, $actualizarCantidad){
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET cantidad = :cantidad WHERE pais = :pais");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET cantidad = :cantidad WHERE distrito = :distrito");
 
 		$stmt->bindParam(":cantidad", $actualizarCantidad, PDO::PARAM_INT);
-		$stmt->bindParam(":pais", $pais, PDO::PARAM_STR);
+		$stmt->bindParam(":distrito", $distrito, PDO::PARAM_STR);
 		
 		if($stmt->execute()){
 
@@ -141,10 +141,10 @@ class ModeloVisitas{
 	}
 
 	/*=============================================
-	MOSTRAR LOS PRIMEROS 6 PAISES DE VISITAS
+	MOSTRAR LOS PRIMEROS 6 distritoES DE VISITAS
 	=============================================*/
 	
-	static public function mdlMostrarPaises($tabla){
+	static public function mdlMostrardistritoes($tabla){
 		
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY cantidad DESC LIMIT 6");
 

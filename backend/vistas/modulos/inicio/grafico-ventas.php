@@ -13,9 +13,9 @@ foreach ($ventas as $key => $value) {
 	/*=============================================
   	PORCENTAJES MÉTODOS DE PAGO PAYPAL
   	=============================================*/
-  	if($value["metodo"] == "pago"){
+  	if($value["metodo"] == "paga"){
 
-  		 $totalPaypal += $value["pago"];
+  		 $totalPaypal += $value["paga"];
 
   		 $porcentajePaypal = $totalPaypal * 100 / $totalVentas["total"];
   	}
@@ -54,7 +54,7 @@ foreach ($ventas as $key => $value) {
 	}
 
 
-	if($value["metodo"] != "pago"){
+	if($value["metodo"] != "paga"){
 
 		#Capturamos sólo el año y el mes
 		$fecha = substr($value["fecha"],0,7);
@@ -63,7 +63,7 @@ foreach ($ventas as $key => $value) {
 		array_push($arrayFechas, $fecha);
 
 		#Capturamos las fechas y los pagos en un mismo array
-		$arrayFechaPago = array($fecha => $value["pago"]);
+		$arrayFechaPago = array($fecha => $value["paga"]);
 
 		#Sumamos los pagos que ocurrieron el mismo mes
 		foreach ($arrayFechaPago as $key => $value) {

@@ -134,7 +134,7 @@ class ModeloComercio{
 	static public function mdlActualizarInformacion($tabla, $id, $datos){
 
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET impuesto = :impuesto,
-		envioNacional = :envioNacional, envioInternacional = :envioInternacional, tasaMinimaNal = :tasaMinimaNal, tasaMinimaInt = :tasaMinimaInt, pais = :pais,
+		envioNacional = :envioNacional, envioInternacional = :envioInternacional, tasaMinimaNal = :tasaMinimaNal, tasaMinimaInt = :tasaMinimaInt, distrito = :distrito,
 		modoPaypal = :modoPaypal, clienteIdPaypal = :clienteIdPaypal, llaveSecretaPaypal = :llaveSecretaPaypal, modoPayu = :modoPayu, merchantIdPayu = :merchantIdPayu, accountIdPayu = :accountIdPayu, apiKeyPayu = :apiKeyPayu WHERE id = :id");
 
 		$stmt->bindParam(":impuesto", $datos["impuesto"], PDO::PARAM_STR);
@@ -142,7 +142,7 @@ class ModeloComercio{
 		$stmt->bindParam(":envioInternacional", $datos["envioInternacional"], PDO::PARAM_STR); 
 		$stmt->bindParam(":tasaMinimaNal", $datos["tasaMinimaNal"], PDO::PARAM_STR); 
 		$stmt->bindParam(":tasaMinimaInt", $datos["tasaMinimaInt"], PDO::PARAM_STR); 
-		$stmt->bindParam(":pais", $datos["seleccionarPais"], PDO::PARAM_STR);
+		$stmt->bindParam(":distrito", $datos["seleccionarDistrito"], PDO::PARAM_STR);
 		$stmt->bindParam(":modoPaypal", $datos["modoPaypal"], PDO::PARAM_STR); 
 		$stmt->bindParam(":clienteIdPaypal", $datos["clienteIdPaypal"], PDO::PARAM_STR); 
 		$stmt->bindParam(":llaveSecretaPaypal", $datos["llaveSecretaPaypal"], PDO::PARAM_STR);

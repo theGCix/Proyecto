@@ -134,13 +134,13 @@ class TablaVentas{
 			      		"'.$imgProducto.'",
 			      		"'.$cliente.'",
 			      		"'.$imgCliente.'",
-			      		"$ '.number_format($ventas[$i]["pago"],2).'",
+			      		"S/ '.number_format($ventas[$i]["pago"],2).'",
 			      		"'.$tipo.'",
 			      		"'.$envio.'",
 			      		"'.$metodo.'",	
 			      		"'.$email.'",
 			      		"'.$ventas[$i]["direccion"].'",
-			      		"'.$ventas[$i]["pais"].'",
+			      		"'.$ventas[$i]["distrito"].'",
 			      		"'.$ventas[$i]["fecha"].'"	
 			      		],';
 

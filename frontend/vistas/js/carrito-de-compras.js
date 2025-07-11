@@ -78,18 +78,18 @@ for(var i = 0; i < indice.length; i++){
 			datosProducto.append("id", item.idProducto);
 			datosProducto.append("precio", item.precio);
 			// console.log(item.idProducto, item.precio);
-			let productosArray = [];
-			listaCarrito.forEach(function(item) {
-				productosArray.push({
-					id: item.idProducto,
-					precio: item.precio
-				});
-			});
+			// let productosArray = [];
+			// listaCarrito.forEach(function(item) {
+			// 	productosArray.push({
+			// 		id: item.idProducto,
+			// 		precio: item.precio
+			// 	});
+			// });
 			// // Luego imprimirlos uno a uno
 			//datosProducto.append("productos", JSON.stringify(productosArray));
-			productosArray.forEach(function(item) {
-			console.log("ID:", item.id, "- Precio:", item.precio);
-			});
+			// productosArray.forEach(function(item) {
+			// console.log("ID:", item.id, "- Precio:", item.precio);
+			// });
 
 			// datosProducto[item.idProducto, item.precio];
 			$.ajax({//b) Hace una solicitud AJAX al servidor para obtener el precio actualizado:
@@ -384,7 +384,6 @@ $(".agregarCarrito").click(function(){
 				} 
 		}
 	);
-
 	}
 
 })
@@ -689,7 +688,7 @@ $("#btnCheckout").click(function(){
 															   '<tr>');
 
 		/*=============================================
-		SELECCIONAR PAÍS DE ENVÍO SI HAY PRODUCTOS FÍSICOS
+		SELECCIONAR DISTRITO DE ENVÍO SI HAY PRODUCTOS FÍSICOS
 		=============================================*/
 	
 		tipoArray.push($(cantidad[i]).attr("tipo"));
@@ -708,9 +707,9 @@ $("#btnCheckout").click(function(){
 
 	if(tipoArray.find(checkTipo) == "fisico"){
 
-		$(".seleccionePais").html('<select class="form-control" id="seleccionarPais" required>'+
+		$(".seleccioneDistrito").html('<select class="form-control" id="seleccionarDistrito" required>'+
 						
-						          '<option value="">Seleccione el país</option>'+
+						          '<option value="">Seleccione el distrito</option>'+
 
 					              '</select>');
 
@@ -720,7 +719,7 @@ $("#btnCheckout").click(function(){
 		$(".btnPagar").attr("tipo","fisico");
 
 		$.ajax({
-			url:rutaOculta+"vistas/js/plugins/countries.json",
+			url:rutaOculta+"vistas/js/plugins/distritos.json",
 			type: "GET",
 			cache: false,
 			contentType: false,
@@ -728,14 +727,12 @@ $("#btnCheckout").click(function(){
 			dataType:"json",
 			success: function(respuesta){
 
-				respuesta.forEach(seleccionarPais);
+				respuesta.forEach(seleccionarDistrito);
 
-				function seleccionarPais(item, index){
+				function seleccionarDistrito(item, index){
 
-					var pais = item.name;
-					var codPais = item.code;
-
-					$("#seleccionarPais").append('<option value="'+codPais+'">'+pais+'</option>');
+					var distrito = item.name;
+					$("#seleccionarDistrito").append('<option value="'+distrito+'">'+distrito+'</option>');
 				
 				}
 
@@ -746,14 +743,14 @@ $("#btnCheckout").click(function(){
 		EVALUAR TASAS DE ENVÍO SI EL PRODUCTO ES FÍSICO
 		=============================================*/
 
-	// 	$("#seleccionarPais").change(function(){
+	// 	$("#seleccionarDistrito").change(function(){
 
 	// 		$(".alert").remove();
 
-	// 		var pais = $(this).val();
-	// 		var tasaPais = $("#tasaPais").val();
+	// 		var distrito = $(this).val();
+	// 		var tasadistrito = $("#tasadistrito").val();
 
-	// 		if(pais == tasaPais){
+	// 		if(distrito == tasadistrito){
 
 	// 			var resultadoPeso = sumaTotalPeso * $("#envioNacional").val();
 				
@@ -901,9 +898,9 @@ $("#cambiarDivisa").change(function(){
 
 	$(".alert").remove();
 
-	if($("#seleccionarPais").val() == ""){
+	if($("#seleccionarDistrito").val() == ""){
 
-		$("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+		$("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado el distrito de envío</div>');
 
 		return;
 
@@ -1033,9 +1030,9 @@ BOTÓN PAGAR PAYU
 
 function pagarConPayu(){
 
-	if($("#seleccionarPais").val() == ""){
+	if($("#seleccionarDistrito").val() == ""){
 
-		$(".formPayu").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+		$(".formPayu").after('<div class="alert alert-warning">No ha seleccionado el distrito de envío</div>');
 		
 		$(".formPayu input[name='Submit']").attr("type","button");
 		
@@ -1322,68 +1319,68 @@ $(".agregarPago").click(function(){
 	})
 })
 
-$(".btnRealizarPago1").click(function(){
-	var idProducto = $(this).attr("idProducto");
-	var idUsuario = $(this).attr("idUsuario");
-	var tipo = $(this).attr("tipo");
-	var titulo = $(this).attr("titulo");
-	var RealizarPago = false;
-	/*=============================================
-	VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
-	=============================================*/
-	var datos = new FormData();
-	datos.append("idUsuario", idUsuario);
-	datos.append("idProducto", idProducto);
-	$.ajax({
-		url:rutaOculta+"ajax/carrito.ajax.php",
-		method:"POST",
-      	data: datos,
-      	cache: false,
-      	contentType: false,
-      	processData: false,
-      	success:function(respuesta){
-      	    if(respuesta != "true"){
-					RealizarPago = true;
-					RealizarPago = true;
-				if(RealizarPago){
-					window.location = rutaOculta+"index.php?ruta=finalizar-compra&pagar=true&producto="+idProducto+"&titulo="+titulo;
-				}
-      	    }
-      	}
-	})
-})
+// $(".btnRealizarPago1").click(function(){
+// 	var idProducto = $(this).attr("idProducto");
+// 	var idUsuario = $(this).attr("idUsuario");
+// 	var tipo = $(this).attr("tipo");
+// 	var titulo = $(this).attr("titulo");
+// 	var RealizarPago = false;
+// 	/*=============================================
+// 	VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
+// 	=============================================*/
+// 	var datos = new FormData();
+// 	datos.append("idUsuario", idUsuario);
+// 	datos.append("idProducto", idProducto);
+// 	$.ajax({
+// 		url:rutaOculta+"ajax/carrito.ajax.php",
+// 		method:"POST",
+//       	data: datos,
+//       	cache: false,
+//       	contentType: false,
+//       	processData: false,
+//       	success:function(respuesta){
+//       	    if(respuesta != "true"){
+// 					RealizarPago = true;
+// 					RealizarPago = true;
+// 				if(RealizarPago){
+// 					window.location = rutaOculta+"index.php?ruta=finalizar-compra&pagar=true&producto="+idProducto+"&titulo="+titulo;
+// 				}
+//       	    }
+//       	}
+// 	})
+// })
 
 
-$(".btnPagoExitosoo").click(function(){
-	var idProducto = $(this).attr("idProducto");
-	var idUsuario = $(this).attr("idUsuario");
-	// var tipo = $(this).attr("tipo");
-	var titulo = $(this).attr("titulo");
-	var RealizarPago = false;
-	/*=============================================
-	VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
-	=============================================*/
-	var datos = new FormData();
-	datos.append("idUsuario", idUsuario);
-	datos.append("idProducto", idProducto);
-	$.ajax({
-		url:rutaOculta+"ajax/producto.ajax.php",
-		method:"POST",
-      	data: datos,
-      	cache: false,
-      	contentType: false,
-      	processData: false,
-      	success:function(respuesta){
-      	    if(respuesta != "true"){
-					RealizarPago = true;
-					RealizarPago = true;
-				if(RealizarPago){
-					window.location = rutaOculta+"index.php?ruta=finalizar-compra&pagado=true&producto="+idProducto+"&titulo="+titulo;
-				}
-      	    }
-      	}
-	})
-})
+// $(".btnPagoExitosoo").click(function(){
+// 	var idProducto = $(this).attr("idProducto");
+// 	var idUsuario = $(this).attr("idUsuario");
+// 	// var tipo = $(this).attr("tipo");
+// 	var titulo = $(this).attr("titulo");
+// 	var RealizarPago = false;
+// 	/*=============================================
+// 	VERIFICAR QUE NO TENGA EL PRODUCTO ADQUIRIDO
+// 	=============================================*/
+// 	var datos = new FormData();
+// 	datos.append("idUsuario", idUsuario);
+// 	datos.append("idProducto", idProducto);
+// 	$.ajax({
+// 		url:rutaOculta+"ajax/producto.ajax.php",
+// 		method:"POST",
+//       	data: datos,
+//       	cache: false,
+//       	contentType: false,
+//       	processData: false,
+//       	success:function(respuesta){
+//       	    if(respuesta != "true"){
+// 					RealizarPago = true;
+// 					RealizarPago = true;
+// 				if(RealizarPago){
+// 					window.location = rutaOculta+"index.php?ruta=finalizar-compra&pagado=true&producto="+idProducto+"&titulo="+titulo;
+// 				}
+//       	    }
+//       	}
+// 	})
+// })
 
 /*=============================================
 /*=============================================
@@ -1521,52 +1518,130 @@ $(".submit").click(function(){
 BOTÓN PAGAR PAYPAL
 =============================================*/
 
-$(".btnRealizarPago").click(function(){
-	// var tipo = $(this).attr("tipo");
-	// if(tipo == "fisico" && $("#seleccionarPais").val() == ""){
-	// 	$(".btnPagar").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
-	// 	return;
-	// }
+// $(".btnRealizarPago").click(function(){
+// 	// var tipo = $(this).attr("tipo");
+// 	// if(tipo == "fisico" && $("#seleccionarDistrito").val() == ""){
+// 	// 	$(".btnPagar").after('<div class="alert alert-warning">No ha seleccionado el distrito de envío</div>');
+// 	// 	return;
+// 	// }
+// 	// var divisa = $("#cambiarDivisa").val();
+// 	var total = $(".valorTotalCompra").html();
+// 	var totalEncriptado = localStorage.getItem("total");
+// 	var impuesto = $(".valorTotalImpuesto").html();
+// 	var envio = $(".valorTotalEnvio").html();
+// 	var subtotal = $(".valorSubtotal").html();
+// 	var titulo = $(".valorTitulo");
+// 	var cantidad = $(".valorCantidad");
+// 	var valorItem = $(".valorItem");
+// 	var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+// 	var tituloArray = [];
+// 	var cantidadArray = [];
+// 	var valorItemArray = [];
+// 	var idProductoArray = [];
+// 	for(var i = 0; i < titulo.length; i++){
+// 		tituloArray[i] = $(titulo[i]).html();
+// 		cantidadArray[i] = $(cantidad[i]).html();
+// 		valorItemArray[i] = $(valorItem[i]).html();
+// 		idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+// 	}
+// 	var datos = new FormData();
+// 	// datos.append("divisa", divisa);
+// 	datos.append("total",total);
+// 	datos.append("totalEncriptado",totalEncriptado);
+// 	datos.append("impuesto",impuesto);
+// 	datos.append("envio",envio);
+// 	datos.append("subtotal",subtotal);
+// 	datos.append("tituloArray",tituloArray);
+// 	datos.append("cantidadArray",cantidadArray);
+// 	datos.append("valorItemArray",valorItemArray);
+// 	datos.append("idProductoArray",idProductoArray);
+// 	$.ajax({
+// 		 url:rutaOculta+"ajax/carrito.ajax.php",
+// 		 method:"POST",
+// 		 data: datos,
+// 		 cache: false,
+//          contentType: false,
+//          processData: false,
+//          success:function(respuesta){
+//             window.location = respuesta;
+//          }
+// 	})
+// })
+
+
+
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+BOTÓN PAGAR PAYPAL
+=============================================*/
+
+$(".btnPagar").click(function(){
+	var tipo = $(this).attr("tipo");
+
+	if(tipo == "fisico" && $("#seleccionarDistrito").val() == ""){
+		$(".btnPagar").after('<div class="alert alert-warning">No ha seleccionado el distrito de envío</div>');
+		return;
+	}
+
 	// var divisa = $("#cambiarDivisa").val();
 	var total = $(".valorTotalCompra").html();
 	var totalEncriptado = localStorage.getItem("total");
 	var impuesto = $(".valorTotalImpuesto").html();
+	var distrito = $("#seleccionarDistrito").val(); // <-- OBTENER DISTRITO
 	var envio = $(".valorTotalEnvio").html();
 	var subtotal = $(".valorSubtotal").html();
 	var titulo = $(".valorTitulo");
 	var cantidad = $(".valorCantidad");
 	var valorItem = $(".valorItem");
 	var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
 	var tituloArray = [];
 	var cantidadArray = [];
 	var valorItemArray = [];
 	var idProductoArray = [];
+
 	for(var i = 0; i < titulo.length; i++){
 		tituloArray[i] = $(titulo[i]).html();
 		cantidadArray[i] = $(cantidad[i]).html();
 		valorItemArray[i] = $(valorItem[i]).html();
 		idProductoArray[i] = $(idProducto[i]).attr("idProducto");
 	}
+
 	var datos = new FormData();
+	datos.append("accion", "guardarCompra");
 	// datos.append("divisa", divisa);
-	datos.append("total",total);
-	datos.append("totalEncriptado",totalEncriptado);
-	datos.append("impuesto",impuesto);
-	datos.append("envio",envio);
-	datos.append("subtotal",subtotal);
-	datos.append("tituloArray",tituloArray);
-	datos.append("cantidadArray",cantidadArray);
-	datos.append("valorItemArray",valorItemArray);
-	datos.append("idProductoArray",idProductoArray);
+	datos.append("total", total);
+	datos.append("totalEncriptado", totalEncriptado);
+	datos.append("impuesto", impuesto);
+	datos.append("envio", envio);
+	datos.append("subtotal", subtotal);
+	datos.append("distrito", distrito); // <-- AGREGAR A FORM DATA
+	datos.append("tituloArray", JSON.stringify(tituloArray));
+	datos.append("cantidadArray", JSON.stringify(cantidadArray));
+	datos.append("valorItemArray", JSON.stringify(valorItemArray));
+	datos.append("idProductoArray", JSON.stringify(idProductoArray));
+
 	$.ajax({
-		 url:rutaOculta+"ajax/carrito.ajax.php",
-		 method:"POST",
-		 data: datos,
-		 cache: false,
-         contentType: false,
-         processData: false,
-         success:function(respuesta){
-            window.location = respuesta;
-         }
-	})
-})
+		url: rutaOculta+"ajax/carrito.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(respuesta){
+			// console.log("Respuesta AJAX:", respuesta); 
+			if(respuesta == "ok"){
+				localStorage.removeItem("listaProductos");
+				localStorage.removeItem("cantidadCesta");
+				localStorage.removeItem("sumaCesta");
+				window.location = rutaOculta + "perfil";
+			} else {
+				alert("Error al procesar la compra. Inténtalo nuevamente.");
+			}
+		}
+	});
+});

@@ -78,7 +78,7 @@ return;
               <th>Metodo</th>
               <th>Email</th>
               <th>Dirección</th>
-              <th>País</th>
+              <th>Distrito</th>
               <th>Fecha</th>
 
             </tr>

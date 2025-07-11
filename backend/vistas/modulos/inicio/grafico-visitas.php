@@ -1,6 +1,6 @@
 <?php
 
-$paises = ControladorVisitas::ctrMostrarPaises("cantidad");
+$distritos = ControladorVisitas::ctrMostrarDistritos("cantidad");
 $totalVisitas = ControladorVisitas::ctrMostrarTotalVisitas();
 
 ?>
@@ -53,9 +53,9 @@ GRÁFICO DE VISITAS
 
         echo ' <div class="col-md-3 col-xs-6 text-center" style="border-right: 1px solid #f4f4f4">
         
-              <input type="text" class="knob" data-readonly="true" value="'.round($paises[$i]["cantidad"]*100/$totalVisitas["total"]).'" data-width="60" data-height="60" data-fgColor="#3999CC">
+              <input type="text" class="knob" data-readonly="true" value="'.round($distritos[$i]["cantidad"]*100/$totalVisitas["total"]).'" data-width="60" data-height="60" data-fgColor="#3999CC">
 
-              <div class="knob-label">'.$paises[$i]["pais"].'</div>
+              <div class="knob-label">'.$distritos[$i]["distrito"].'</div>
             
             </div>';
 
@@ -81,7 +81,7 @@ GRÁFICO DE VISITAS
 
     <?php
 
-    foreach ($paises as $key => $value) {
+    foreach ($distritos as $key => $value) {
 
       echo $value["codigo"].' : '.$value["cantidad"].',';
 

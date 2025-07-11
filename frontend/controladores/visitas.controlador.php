@@ -6,7 +6,7 @@ class ControladorVisitas{
 	GUARDAR IP
 	=============================================*/
 
-	static public function ctrEnviarIp($ip, $pais, $codigo){
+	static public function ctrEnviarIp($ip, $distrito, $codigo){
 
 		$tabla = "visitaspersonas";
 		$visita = 1;
@@ -14,10 +14,10 @@ class ControladorVisitas{
 		$respuestaInsertarIp = null;
 		$respuestaActualizarIp = null;
 
-		if($pais == ""){
+		if($distrito == ""){
 
-			$pais = "Unknown";
-			$codigo = "NK";
+			$distrito = "Unknown";
+			// $codigo = "NK";
 		}
 
 		/*=============================================
@@ -32,7 +32,7 @@ class ControladorVisitas{
 			GUARDAR IP NUEVA
 			=============================================*/
 
-			$respuestaInsertarIp = ModeloVisitas::mdlGuardarNuevaIp($tabla, $ip, $pais, $visita);
+			$respuestaInsertarIp = ModeloVisitas::mdlGuardarNuevaIp($tabla, $ip, $distrito, $visita);
 
 		}else{
 
@@ -51,7 +51,7 @@ class ControladorVisitas{
 
 			if($fechaActual != $compararFecha){
 
-				$respuestaActualizarIp = ModeloVisitas::mdlGuardarNuevaIp($tabla, $ip, $pais, $visita);	
+				$respuestaActualizarIp = ModeloVisitas::mdlGuardarNuevaIp($tabla, $ip, $distrito, $visita);	
 				
 			}
 
@@ -60,32 +60,32 @@ class ControladorVisitas{
 
 		if($respuestaInsertarIp == "ok" || $respuestaActualizarIp == "ok"){
 
-			$tablaPais = "visitaspaises";
+			$tabladistrito = "visitasdistritos";
 
 			/*=============================================
-			SELECCIONAR PAÍS
+			SELECCIONAR distrito
 			=============================================*/
 
-			$seleccionarPais = ModeloVisitas::mdlSeleccionarPais($tablaPais, $pais);
+			$seleccionarDistrito = ModeloVisitas::mdlseleccionarDistrito($tabladistrito, $distrito);
 
-			if(!$seleccionarPais){
+			if(!$seleccionarDistrito){
 
 				/*=============================================
-				SI NO EXISTE EL PAÍS AGREGAR NUEVO PAÍS
+				SI NO EXISTE EL distrito AGREGAR NUEVO distrito
 				=============================================*/	
 
 				$cantidad = 1;
 
-				$insertarPais = ModeloVisitas::mdlInsertarPais($tablaPais, $pais, $cantidad, $codigo);
+				$insertardistrito = ModeloVisitas::mdlInsertardistrito($tabladistrito, $distrito, $cantidad, $codigo);
 
 			}else{
 
 				/*=============================================
-				SI EXISTE EL PAÍS ACTUALIZAR UNA NUEVA VISITA
+				SI EXISTE EL distrito ACTUALIZAR UNA NUEVA VISITA
 				=============================================*/	
-				 $actualizarCantidad = $seleccionarPais["cantidad"] + 1;
+				 $actualizarCantidad = $seleccionarDistrito["cantidad"] + 1;
 
-				 $actualizarPais = ModeloVisitas::mdlActualizarPais($tablaPais, $pais, $actualizarCantidad);
+				 $actualizardistrito = ModeloVisitas::mdlActualizardistrito($tabladistrito, $distrito, $actualizarCantidad);
 
 			}	
 
@@ -99,7 +99,7 @@ class ControladorVisitas{
 
 	static public function ctrMostrarTotalVisitas(){
 
-		$tabla = "visitaspaises";
+		$tabla = "visitasdistritos";
 
 		$respuesta = ModeloVisitas::mdlMostrarTotalVisitas($tabla);
 
@@ -108,14 +108,14 @@ class ControladorVisitas{
 	}
 
 	/*=============================================
-	MOSTRAR LOS PRIMEROS 6 PAISES DE VISITAS
+	MOSTRAR LOS PRIMEROS 6 distritoES DE VISITAS
 	=============================================*/
 	
-	static public function ctrMostrarPaises(){
+	static public function ctrMostrardistritos(){
 
-		$tabla = "visitaspaises";
+		$tabla = "visitasdistritos";
 	
-		$respuesta = ModeloVisitas::mdlMostrarPaises($tabla);
+		$respuesta = ModeloVisitas::mdlMostrardistritos($tabla);
 		
 		return $respuesta;
 	}

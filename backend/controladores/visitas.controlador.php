@@ -8,7 +8,7 @@ class ControladorVisitas{
 
 	static public function ctrMostrarTotalVisitas(){
 
-		$tabla = "visitaspaises";
+		$tabla = "visitasdistritos";
 
 		$respuesta = ModeloVisitas::mdlMostrarTotalVisitas($tabla);
 
@@ -17,14 +17,14 @@ class ControladorVisitas{
 	}
 
 	/*=============================================
-	MOSTRAR PAISES DE VISITAS
+	MOSTRAR Distritos DE VISITAS
 	=============================================*/
 	
-	static public function ctrMostrarPaises($orden){
+	static public function ctrMostrarDistritos($orden){
 
-		$tabla = "visitaspaises";
+		$tabla = "visitasdistritos";
 	
-		$respuesta = ModeloVisitas::mdlMostrarPaises($tabla, $orden);
+		$respuesta = ModeloVisitas::mdlMostrarDistritos($tabla, $orden);
 		
 		return $respuesta;
 	}

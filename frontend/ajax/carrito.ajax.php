@@ -12,6 +12,10 @@ require_once "../modelos/productos.modelo.php";
 require_once "../controladores/notificaciones.controlador.php";
 require_once "../modelos/notificaciones.modelo.php";
 require_once "../modelos/usuarios.modelo.php";
+
+
+require_once "../controladores/usuarios.controlador.php";
+require_once "../modelos/usuarios.modelo.php";
 class AjaxCarrito{
 
 	/*=============================================
@@ -84,89 +88,71 @@ class AjaxCarrito{
 
 }
 /*=============================================
-MÉTODO PAYPAL
+MÉTODO COMPRA
 =============================================*/	
 
-if(isset($_POST["divisa"])){
+if(isset($_POST["accion"]) && $_POST["accion"] == "guardarCompra") {
 
-	$idProductos = explode("," , $_POST["idProductoArray"]);
-	$cantidadProductos = explode("," , $_POST["cantidadArray"]);
-	$precioProductos = explode("," , $_POST["valorItemArray"]);
+	session_start(); // Asegúrate de tener acceso a $_SESSION["id"]
 
-	$item = "id";
+	$idUsuario = $_SESSION["id"];
+	
+	$emailUsuario = $_SESSION["email"];
+	$usuario = ControladorUsuarios::ctrMostrarUsuario("id", $idUsuario);
+	// echo "<pre>";
+	// print_r($usuario);
+	// echo "</pre>";
+	// exit;
+	$direccion = $usuario["direccion"];
+	$distrito = $_POST["distrito"];
+	$total = $_POST["total"];
+	$totalEncriptado = $_POST["totalEncriptado"];
+	$impuesto = $_POST["impuesto"];
+	// $envio = $_POST["envio"];
+	$subtotal = $_POST["subtotal"];
 
-	for($i = 0; $i < count($idProductos); $i ++){
+	$tituloArray = json_decode($_POST["tituloArray"]);
+	$cantidadArray = json_decode($_POST["cantidadArray"]);
+	$valorItemArray = json_decode($_POST["valorItemArray"]);
+	$idProductoArray = json_decode($_POST["idProductoArray"]);
 
-		$valor = $idProductos[$i];
-
-		$verificarProductos = ControladorProductos::ctrMostrarInfoProducto($item, $valor);
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://free.currconv.com/api/v7/convert?q=USD_".$_POST["divisa"]."&compact=ultra&apiKey=cf2b1e499a7e50da66db"); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-
-		if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200){
-		
-			$divisa = curl_exec($ch);
-
-			$jsonDivisa = json_decode($divisa, true);   
-			
-			if($jsonDivisa["status"] == 400){
-
-				$conversion = 1;
-			
-			}else{
-
-				$conversion = $jsonDivisa["USD_".$_POST["divisa"]];
-
-			}
-
-		}else{
-
-			$conversion = 1;
-		}
-
-		if($verificarProductos["precioOferta"] == 0){
-
-			$precio = $verificarProductos["precio"]*$conversion;
-		
-		}else{
-
-			$precio = $verificarProductos["precioOferta"]*$conversion;
-
-		}
-
-		$verificarSubTotal = $cantidadProductos[$i]*$precio;
-
-		// echo number_format($verificarSubTotal,2)."<br>";
-		// echo number_format($precioProductos[$i],2)."<br>";
-
-		// return;
-
-		if(number_format($verificarSubTotal,2) != number_format($precioProductos[$i],2)){
-
-			echo "carrito-de-compras";
-
-			return;
-
-		}
-
+	// Validación simple de integridad
+	if(md5($total) !== $totalEncriptado){
+		echo "error-validacion";
+		return;
 	}
 
-	$paypal = new AjaxCarrito();
-	$paypal ->divisa = $_POST["divisa"];
-	$paypal ->total = $_POST["total"];
-	$paypal ->totalEncriptado = $_POST["totalEncriptado"];
-	$paypal ->impuesto = $_POST["impuesto"];
-	$paypal ->envio = $_POST["envio"];
-	$paypal ->subtotal = $_POST["subtotal"];
-	$paypal ->tituloArray = $_POST["tituloArray"];
-	$paypal ->cantidadArray = $_POST["cantidadArray"];
-	$paypal ->valorItemArray = $_POST["valorItemArray"];
-	$paypal ->idProductoArray = $_POST["idProductoArray"];
-	$paypal -> ajaxEnviarPaypal();
+	for($i = 0; $i < count($idProductoArray); $i++){
 
+		$datos = array(
+			"idUsuario" => $idUsuario,
+			"idProducto" => $idProductoArray[$i],
+			"metodo" => "paga", // sin pasarela
+			"email" => $emailUsuario, // opcional
+			"direccion" =>$direccion, // podrías incluir el distrito aquí si es físico
+			"distrito" => $distrito, // si aplica
+			"cantidad" => $cantidadArray[$i],
+			"detalle" => $tituloArray[$i],
+			"pago" => $valorItemArray[$i]
+		);
 
+		$respuesta = ControladorCarrito::ctrNuevasCompras($datos);
+
+		// Actualiza ventas por producto
+		$item1 = "ventas";
+		$valor1 = $cantidadArray[$i];
+
+		$item2 = "id";
+		$valor2 = $idProductoArray[$i];
+
+		ControladorProductos::ctrActualizarProducto($item1, $valor1, $item2, $valor2);
+	}
+
+	if($respuesta == "ok"){
+		echo "ok";
+	} else {
+		echo "error";
+	}
 }
 
 /*=============================================

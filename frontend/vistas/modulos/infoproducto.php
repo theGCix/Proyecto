@@ -729,7 +729,7 @@ INFOPRODUCTOS
 								}
 
 
-									echo 'ADICIONAR AL CARRITO_1 
+									echo 'ADICIONAR AL CARRITO 
 
 									<i class="fa fa-shopping-cart"></i>
 
@@ -793,7 +793,7 @@ INFOPRODUCTOS
 									'" tipo="'.$infoproducto["tipo"].
 									'" titulo="'.$infoproducto["titulo"].
 									'" precio="'.$infoproducto["precio"].
-									'">COMPRAR AHORA   2</button>';
+									'">COMPRAR AHORA</button>';
 
 								}else{
 									echo '<button class="btn btn-default btn-block btn-lg backColor agregarPago" 
@@ -801,7 +801,7 @@ INFOPRODUCTOS
 									'" idUsuario="'.$_SESSION["id"].
 									'" tipo="'.$infoproducto["tipo"].
 									'" titulo="'.$infoproducto["titulo"].
-									'">COMPRAR AHORA   2.1</button>';
+									'">COMPRAR AHORA</button>';
 
 								}
 						}
@@ -1400,7 +1400,7 @@ VENTANA MODAL PARA CHECKOUT
 				      <input type="hidden" id="envioInternacional" value="'.$respuesta["envioInternacional"].'">
 				      <input type="hidden" id="tasaMinimaNal" value="'.$respuesta["tasaMinimaNal"].'">
 				      <input type="hidden" id="tasaMinimaInt" value="'.$respuesta["tasaMinimaInt"].'">
-				      <input type="hidden" id="tasaPais" value="'.$respuesta["pais"].'">
+				      <input type="hidden" id="tasaDistrito" value="'.$respuesta["distrito"].'">
 
 				';
 
@@ -1410,7 +1410,7 @@ VENTANA MODAL PARA CHECKOUT
 					
 					<h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
 
-					<div class="col-xs-12 seleccionePais">
+					<div class="col-xs-12 seleccioneDistrito">
 						
 						
 

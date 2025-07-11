@@ -26,7 +26,7 @@ class TablaVisitas{
 		$datosJson	 .= '[
 			      "'.($i+1).'",
 			      "'.$visitas[$i]["ip"].'",
-			      "'.$visitas[$i]["pais"].'",
+			      "'.$visitas[$i]["distrito"].'",
 			      "'.$visitas[$i]["visitas"].'",
 			      "'.$visitas[$i]["fecha"].'"    
 			    ],';

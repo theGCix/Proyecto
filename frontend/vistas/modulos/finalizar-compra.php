@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
    if(localStorage.getItem("listaProductos") != null){
 
 	var listaCarrito = JSON.parse(localStorage.getItem("listaProductos"));
@@ -45,7 +45,7 @@ for(var i = 0; i < indice.length; i++){
 		}		
 	}
 }
-</script>
+</script> -->
 <?php
 
 
@@ -95,7 +95,7 @@ if(isset( $_GET['paypal']) && $_GET['paypal'] === 'true'){
    $ciudad = $datosUsuario->payer->payer_info->shipping_address->city;
    $estado = $datosUsuario->payer->payer_info->shipping_address->state;
    $codigoPostal = $datosUsuario->payer->payer_info->shipping_address->postal_code;
-   $pais = $datosUsuario->payer->payer_info->shipping_address->country_code;
+   $distrito = $datosUsuario->payer->payer_info->shipping_address->country_code;
 
    $direccion = $dir.", ".$ciudad.", ".$estado.", ".$codigoPostal;
          
@@ -107,7 +107,7 @@ if(isset( $_GET['paypal']) && $_GET['paypal'] === 'true'){
                      "metodo"=>"paypal",
                      "email"=>$emailComprador,
                      "direccion"=>$direccion,
-                     "pais"=>$pais,
+                     "distrito"=>$distrito,
                      "cantidad"=>$cantidad[$i],
                      "detalle"=>$datosUsuario->transactions[0]->item_list->items[$i]->name,
                      "pago"=>$pago[$i]);
@@ -168,7 +168,7 @@ for($i = 0; $i < count($productos); $i++){
                     "metodo"=>"pago",
                     "email"=>$_SESSION["email"],
                     "direccion"=>"",
-                    "pais"=>"",
+                    "distrito"=>"",
                     "cantidad"=>"",
                     "detalle"=>"",
                     "pago"=>$pago
@@ -208,7 +208,7 @@ for($i = 0; $i < count($productos); $i++){
                     "metodo"=>"paga",
                     "email"=>$_SESSION["email"],
                     "direccion"=>"",
-                    "pais"=>"",
+                    "distrito"=>"",
                     "cantidad"=>"",
                     "detalle"=>"",
                     "pago"=>$pago
@@ -246,7 +246,7 @@ else if(isset( $_GET['gratis']) && $_GET['gratis'] === 'true'){
                     "metodo"=>"gratis",
                     "email"=>$_SESSION["email"],
                     "direccion"=>"",
-                    "pais"=>"",
+                    "distrito"=>"",
                     "cantidad"=>"",
                     "detalle"=>"",
                     "pago"=>"");

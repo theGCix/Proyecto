@@ -53,7 +53,7 @@
               
               <th style="width:10px">#</th>
               <th>IP Pública</th>
-              <th>País</th>
+              <th>Distrito</th>
               <th>Visitas</th>
               <th>Fecha</th>
 

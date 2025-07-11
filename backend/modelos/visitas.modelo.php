@@ -23,10 +23,10 @@ class ModeloVisitas{
 	}
 
 	/*=============================================
-	MOSTRAR PAISES DE VISITAS
+	MOSTRAR DISTRITOS DE VISITAS
 	=============================================*/
 	
-	static public function mdlMostrarPaises($tabla, $orden){
+	static public function mdlMostrarDistritos($tabla, $orden){
 		
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY $orden DESC");
 
